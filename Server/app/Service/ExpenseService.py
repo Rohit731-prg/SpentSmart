@@ -80,6 +80,7 @@ async def get_all_expense(db: Session, id: str):
 
 async def filterExpenses(db: Session, filter_type: str, user_id: int):
     try:
+        print(filter_type)
         total_expense = 0
         filters = ["Today", "This Week", "This Month", "This Year"]
         if filter_type not in filters:
@@ -126,15 +127,63 @@ async def filterExpenses(db: Session, filter_type: str, user_id: int):
             ).all()
 
         if not expenses:
-            raise HTTPException(status_code=400, detail="No records found")
+            return {
+                "expenses": None,
+                "Total_expense": 0
+            }
 
         return {
-            "expense": expenses,
-            "total_expense": total_expense
+            "expenses": expenses,
+            "Total_expense": total_expense
         }
     except HTTPException as e:
+        print(str(e))
         raise 
     except Exception as e:
+        print(str(e))
         raise HTTPException(status_code=500, detail=str(e))
 
 
+async def delete_expense(db: Session, expense_id: int):
+    try:
+        expense = db.query(Expense).filter(Expense.id == expense_id).first()
+        if not expense:
+            raise HTTPException(status_code=400, detail="No records found")
+
+        db.delete(expense)
+        db.commit()
+
+        return {
+            "message": "Expense deleted successfully"
+        }
+
+    except HTTPException as e:
+        print(str(e))
+        raise 
+    except Exception as e:
+        print(str(e))
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+async def update_expense(db: Session, expense_details: ExpenseModel, expense_id: int):
+    try:
+        expense = db.query(Expense).filter(Expense.id == expense_id).first()
+        if not expense:
+            raise HTTPException(status_code=400, detail="No records found")
+
+        for key, value in dict(expense_details).items():
+            setattr(expense, key, value)
+
+        db.commit()
+        db.refresh(expense)
+
+        return {
+            "message": "Expense deleted successfully"
+        }
+
+    except HTTPException as e:
+        print(str(e))
+        raise 
+    except Exception as e:
+        print(str(e))
+        raise HTTPException(status_code=500, detail=str(e))

@@ -31,7 +31,7 @@ function Expense() {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back {user?.name.split(" ")[0]}
+            Welcome back {(user as any)?.name.split(" ")[0]}
           </h1>
           <p className="text-gray-500 mt-1">
             Manage your daily expenses efficiently

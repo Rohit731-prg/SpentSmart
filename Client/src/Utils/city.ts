@@ -124,3 +124,66 @@ export const expense = [
     name: "Other"
   }
 ];
+
+export const investment = [
+  {
+    id: 1,
+    image: "https://cdn-icons-png.flaticon.com/128/2422/2422796.png",
+    name: "Stocks"
+  },
+  {
+    id: 2,
+    image: "https://cdn-icons-png.flaticon.com/128/2910/2910310.png",
+    name: "Mutual Funds"
+  },
+  {
+    id: 3,
+    image: "https://cdn-icons-png.flaticon.com/128/602/602275.png",
+    name: "Real Estate"
+  },
+  {
+    id: 4,
+    image: "https://cdn-icons-png.flaticon.com/128/2171/2171091.png",
+    name: "Gold & Precious Metals"
+  },
+  {
+    id: 5,
+    image: "https://cdn-icons-png.flaticon.com/128/5968/5968260.png",
+    name: "Crypto"
+  },
+  {
+    id: 6,
+    image: "https://cdn-icons-png.flaticon.com/128/2845/2845890.png",
+    name: "Fixed Deposit"
+  },
+  {
+    id: 7,
+    image: "https://cdn-icons-png.flaticon.com/128/3135/3135706.png",
+    name: "Bonds"
+  },
+  {
+    id: 8,
+    image: "https://cdn-icons-png.flaticon.com/128/1043/1043431.png",
+    name: "Retirement & Pension"
+  },
+  {
+    id: 9,
+    image: "https://cdn-icons-png.flaticon.com/128/2761/2761008.png",
+    name: "SIP"
+  },
+  {
+    id: 10,
+    image: "https://cdn-icons-png.flaticon.com/128/2910/2910243.png",
+    name: "ETF"
+  },
+  {
+    id: 11,
+    image: "https://cdn-icons-png.flaticon.com/128/3135/3135679.png",
+    name: "Startups / Business"
+  },
+  {
+    id: 12,
+    image: "https://cdn-icons-png.flaticon.com/128/929/929564.png",
+    name: "Other"
+  }
+];

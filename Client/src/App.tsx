@@ -7,6 +7,7 @@ import Expense from "./Components/Expense";
 import ExpenseList from "./Components/ExpenseList";
 import Investment from "./Components/Investment";
 import Layout from "./Layout";
+import InvestmentList from "./Components/InvestmentList";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/expense" element={<Expense />} />
               <Route path="/expense-list" element={<ExpenseList />} />
               <Route path="/investment" element={<Investment />} />
+              <Route path="/investment-list" element={<InvestmentList />} />
             </Route>
           </Route>
         </Routes>

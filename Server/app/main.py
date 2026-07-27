@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.Route.UserRoute import route as user_route
 from app.Route.ExpenseRoute import route as expense_route
+from app.Route.InvestmentRoute import route as investment_route
 from fastapi.middleware.cors import CORSMiddleware
 from app.Config.connectDB import base, engine
 
@@ -18,3 +19,4 @@ app.add_middleware(
 
 app.include_router(user_route)
 app.include_router(expense_route)
+app.include_router(investment_route)
