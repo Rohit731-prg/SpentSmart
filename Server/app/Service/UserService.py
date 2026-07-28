@@ -1,10 +1,13 @@
 from sqlalchemy.orm.session import Session
+
+from fastapi import HTTPException, Request, Response
+
 from app.Model.UserModel import UserModel, LoginModel
-from fastapi import HTTPException, Response
 from app.DB.User import User
 from app.Utils.Password import hash_password, verify_password
 from app.Utils.token import create_jwt_token
-from app.Redis.redis import blackList_token
+from app.DB.Token import Token
+
 
 async def createUser(db: Session, user_data: UserModel):
     try:
@@ -65,12 +68,27 @@ async def loginUser(db: Session, lofin_details: LoginModel, res: Response):
         raise HTTPException(status_code=500, detail=str(e))
     
 
-async def userLogOut(res: Response, token: str):
+async def userLogOut(db: Session ,req: Request, res: Response):
     try:
-        blackList_token(token_id=token, expiration_time=3600)
+        cookie = req.cookies.get("access_token")
+        if not cookie:
+            raise HTTPException(status_code=400, detail="No Cookie found")
+
+        token = db.query(Token).filter(Token.token == cookie).first()
+        if token:
+            raise HTTPException(status_code=400, detail="Cookie already registerd")
+
+        new_tooken = Token(
+            token = cookie
+        )
+        db.add(new_tooken)
+        db.commit()
+        db.refresh(new_tooken)
+
         res.delete_cookie(key="access_token")
+
         return {
-            "message": "User logged out successfully"
+            "message": "Logout successfully"
         }
     except HTTPException as e:
         raise
