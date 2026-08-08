@@ -13,6 +13,13 @@ function Navber() {
     { id: 5, path: "/investment-list", name: "Investment List" },
   ];
 
+  const logout_func = async () => {
+    const response = await logout();
+    if (response) {
+      navigate("/")
+    }
+  }
+  
   return (
     <div className="w-64 h-screen bg-gray-900 text-white p-4 flex flex-col">
       <div className="mb-8 border-b border-gray-700 pb-4">
@@ -33,7 +40,7 @@ function Navber() {
       </main>
 
       <button 
-      onClick={() => logout()}
+      onClick={() => logout_func()}
       className="mt-auto w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg font-medium transition">
         LOG OUT
       </button>

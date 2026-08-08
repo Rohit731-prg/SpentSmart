@@ -70,7 +70,7 @@ function ExpenseList() {
 
         {/* Expense List */}
         <aside className="space-y-4">
-          {expenses?.map((exp) => (
+          {expense && expenses?.map((exp) => (
             <div
               key={exp.id}
               className="bg-white rounded-xl shadow-md p-5 flex flex-col md:flex-row md:items-center md:justify-between"

@@ -170,7 +170,6 @@ async def update_expense(db: Session, investmente_details: InvestmentModel, inve
         return {
             "message": "Expense deleted successfully"
         }
-
     except HTTPException as e:
         print(str(e))
         raise 

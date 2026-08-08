@@ -13,7 +13,7 @@ async def verify(
         cookie = req.cookies.get("access_token")
         if not cookie:
             raise HTTPException(status_code=400, detail="No cookie found")
-        print(cookie)
+            
         payload = jwt.decode(cookie, setting.SECRET_KEY, algorithms=[setting.ALGORITHM])
         user_id, user_email = payload.get("user_id"), payload.get("email")
 

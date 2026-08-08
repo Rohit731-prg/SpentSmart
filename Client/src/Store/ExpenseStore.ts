@@ -70,6 +70,8 @@ const useExpenseStore = create<Store>()((set, get) => ({
         } catch (error) {
             toast.error("Internal Server Error");
             console.log(error)
+            set({ expenses: null });
+            set({ total_expense: null });
         }
     },
 

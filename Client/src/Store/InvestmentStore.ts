@@ -18,8 +18,12 @@ type Store = {
 
     createNewInvestment: (data: investment_input) => Promise<void>
     createNewInvestmentWithAi: (input: string) => Promise<void>
+
     getAllInvestment: () => Promise<void>
     getFilteredInvestment: (input: string) => Promise<void>
+
+    updateInvestment: (data: investmentList) => Promise<void>
+    deleteInvestment: (id: number) => Promise<void>
 }
 
 const useInvestmentStore = create<Store>()((set, get) => ({
@@ -62,7 +66,8 @@ const useInvestmentStore = create<Store>()((set, get) => ({
             console.log(response)
             set({ total_investment: response.data.total_investment, investments: response.data.investments });
         } catch (error) {
-            toast.error(error as any)
+            console.log(error);
+            toast.error("Internal Server error or no records found");
         }
     },
 
@@ -72,9 +77,45 @@ const useInvestmentStore = create<Store>()((set, get) => ({
             return
         }
         try {
-            
+            const response = await api.get(`/investment/get-filter-investments/${input}`);
+            console.log(response)
+            set({
+                total_investment: response.data.total_investment,
+                investments: response.data.investments
+            })
         } catch (error) {
-            toast.error(error as any)
+            console.log(error);
+            toast.error("Internal Server error or no records found");
+        }
+    },
+
+    updateInvestment: async (data) => {
+        try {
+            const response = api.put(`/investment/update-investment/${data.id}`, data)
+            toast.promise(response, {
+                loading: "Loading..!",
+                success: (res) => res.data.message,
+                error: "Internal Server Error"
+            });
+            await response
+            get().getAllInvestment();
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    deleteInvestment: async (id) => {
+        try {
+            const response = api.delete(`/investment/delete-investment/${id}`);
+            toast.promise(response, {
+                loading: "Loading..!",
+                success: (res) => res.data.message,
+                error: "Internal Server Error"
+            });
+            await response
+            get().getAllInvestment()
+        } catch (error) {
+            console.log(error)
         }
     }
 }));

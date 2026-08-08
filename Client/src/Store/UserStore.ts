@@ -13,15 +13,46 @@ interface signup_interface extends login_interface {
     salary: Number
 }
 
+interface basic_info {
+    "total": {
+        "total_expense": number,
+        "total_investment": number
+    },
+    "today_report": {
+        "expense": number,
+        "investment": number
+    },
+    "monthly_report": {
+        "expense": number,
+        "investment": number
+    },
+    "top_expense_report": any,
+    "last_transaction": any
+}
+
+interface user_interface {
+    name: string,
+    email: string,
+    city: string,
+    salary: number
+}
+
 type Store = {
-    user: null,
+    user: null | user_interface,
+    basic_info: null | basic_info
+
     login: (data: login_interface) => void
     signUp: (data: signup_interface) => Promise<boolean>
-    logout: () => Promise<void>
+    logout: () => Promise<boolean>
+
+    userUpdate: (data: user_interface) => Promise<boolean>
+
+    basic_information: () => Promise<void>
 }
 
 const useUserStore = create<Store>()((set) => ({
     user: null,
+    basic_info: null,
 
     login: async (data) => {
         try {
@@ -59,15 +90,43 @@ const useUserStore = create<Store>()((set) => ({
 
     logout: async () => {
         try {
-            const response = api.post("")
+            const response = api.post("/user/log-out")
             toast.promise(response, {
                 loading: "Loading..!",
                 success: (res) => res.data.message,
                 error: "Internal Error"
             });
             await response
+            return true
         } catch (error) {
             console.log(error)
+            return false
+        }
+    },
+
+    userUpdate: async (data: user_interface) => {
+        try {
+            const response = api.put("/user/update-user-info", data);
+            toast.promise(response, {
+                loading: "Loading..!",
+                success: (res) => res.data.message,
+                error: "Internal Error"
+            });
+            await response;
+            return true
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    },
+
+    basic_information: async () => {
+        try {
+            const response = await api.get("/user/get-all-basic-info");
+            console.log(response)
+            set({ basic_info: response.data })
+        } catch (error) {
+            console.log(error);
         }
     }
 }))
