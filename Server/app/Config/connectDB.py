@@ -4,7 +4,11 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 url = setting.DATABASE_URL
 
-engine = create_engine(url)
+engine = create_engine(
+    url,
+    pool_pre_ping=True,
+    pool_recycle=300
+)
 
 sessionLocal = sessionmaker(
     autoflush=False,
@@ -13,6 +17,7 @@ sessionLocal = sessionmaker(
 )
 
 base = declarative_base()
+
 
 def get_db():
     db = sessionLocal()
