@@ -56,7 +56,13 @@ async def loginUser(db: Session, lofin_details: LoginModel, res: Response):
             raise HTTPException(status_code=400, detail="Incorrect password")
         
         token = create_jwt_token({"user_id": user.id, "email": user.email})
-        res.set_cookie(key="access_token", value=token, httponly=True)
+        res.set_cookie(
+            key="access_token",
+            value=token,
+            httponly=True,
+            secure=True,
+            samesite="none"
+        )
 
         return {
             "message": "Login successful",
