@@ -1,0 +1,16 @@
+services:
+  server:
+    build: ./server
+    container_name: spentsmart-server
+    env_file:
+      - ./Server/.env
+    ports:
+      - 8000:8000
+
+  client:
+    build: ./client
+    container_name: spentsmart-client
+    ports:
+      - 3000:3000
+    depends_on:
+      - server

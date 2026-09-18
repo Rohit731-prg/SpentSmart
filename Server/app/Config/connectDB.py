@@ -2,8 +2,7 @@ from app.Config.config import setting
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-password = setting.DATABASE_PASSWORD
-url = f"postgresql://postgres:{password}@localhost:5432/spentsmart"
+url = setting.DATABASE_URL
 
 engine = create_engine(url)
 
