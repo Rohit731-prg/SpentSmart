@@ -16,7 +16,7 @@ app.add_middleware(
         "http://localhost:5173",
         "http://localhost:3000",
         setting.CLOUD_BACKEND_URL,
-        "https://spentsmart-client.onrender.com/"
+        "https://spentsmart-client.onrender.com"
     ],
     allow_credentials=True,
     allow_methods=["*"],
