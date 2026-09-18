@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     GEMINI_API_KEY: str = "your-gemini-key"
     DATABASE_URL: str = ""
+    CLOUD_BACKEND_URL: str = ""
 
     class Config:
         env_file = ".env"

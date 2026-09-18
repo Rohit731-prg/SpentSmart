@@ -4,6 +4,7 @@ from app.Route.ExpenseRoute import route as expense_route
 from app.Route.InvestmentRoute import route as investment_route
 from fastapi.middleware.cors import CORSMiddleware
 from app.Config.connectDB import base, engine
+from app.Config.config import setting
 
 app = FastAPI()
 
@@ -14,6 +15,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:3000",
+        setting.CLOUD_BACKEND_URL
     ],
     allow_credentials=True,
     allow_methods=["*"],
